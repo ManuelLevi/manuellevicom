@@ -1,31 +1,42 @@
 <template>
-    <nav>
-        <v-navigation-drawer v-model="drawer" dark app mini-variant mini-variant-width="100" class='cyan darken-4'>
+  <div>
+    <v-app-bar>
+      <v-toolbar-title>ML</v-toolbar-title>
 
-            <v-list>
-                <v-list-item class="mb-12">
-                    <v-list-item-action>
-                    </v-list-item-action>
-                </v-list-item>
-            </v-list>
-            <v-list flat>
-                <v-list-item router to='/'>
-                    <v-list-item-content>
-                        <v-list-item-subtitle align="center">Home</v-list-item-subtitle>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
+      <v-spacer></v-spacer>
 
-            <v-list style="position: absolute; bottom:0" class="ml-3" flat>
-                <v-list-item router to='/'>
-                    <v-list-item-action>
-                        <v-list-item-subtitle>Signout</v-list-item-subtitle>
-                    </v-list-item-action>
-                </v-list-item>
+      <span class="hidden-sm-and-up">
+        <v-btn @click.stop="drawer = !drawer">Menu</v-btn>
+      </span>
 
-            </v-list>
-        </v-navigation-drawer>
+      <v-toolbar-items class="hidden-xs-only">
+        <v-btn v-for="item in items" :key="item.title" :to="item.link"
+          >{{ item.title }}
+        </v-btn>
+      </v-toolbar-items>
+    </v-app-bar>
 
-    </nav>
-
+    <v-navigation-drawer v-model="drawer" absolute temporary right>
+      <v-list>
+        <v-list-item v-for="item in items" :key="item.title" :to="item.link">
+          {{ item.title }}
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+  </div>
 </template>
+
+
+<script>
+module.exports = {
+  data() {
+    return {
+      drawer: false,
+      items: [
+        { title: "Home", link: "/" },
+        { title: "Token", link: "/token" },
+      ],
+    };
+  },
+};
+</script>
